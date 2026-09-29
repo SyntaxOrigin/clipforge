@@ -1,0 +1,29 @@
+[package]
+name = "clipforge"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+license = "MIT"
+description = "Platform profillerine gore MP4/MKV kapsul ayristirma ve kirp plani ureten saf Rust komut satiri araci."
+repository = "https://github.com/SyntaxOrigin/clipforge"
+readme = "README.md"
+keywords = ["cli", "clipforge", "mp4", "matroska", "video"]
+categories = ["command-line-utilities", "multimedia::video"]
+
+[dependencies]
+# serde: kirp plani JSON semasi ve platform profili tanimlari icin turetilmis veri
+# yapilari gerekli (src/plan.rs, src/profil.rs, src/kuyruk.rs).
+serde = { version = "1", features = ["derive"] }
+# serde_json: kirp plani dosyasi, gomulu profil yapilandirmasi ve --json ciktisi
+# uretiliyor (src/profil.rs, src/plan.rs, src/rapor.rs).
+serde_json = "1"
+# clap: probe/plan/profiles/batch alt komutlari ve bayraklari icin turetilmis
+# komut satiri arayuzu gerekli (src/cli.rs).
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = "debuginfo"
